@@ -19,10 +19,17 @@ set(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ProcessItterator/ProcessItterator.cpp
 )
 
-# Add an executable called 'PhantomLinkV' from source 'main.cpp'
+set(
+    PROCESS_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Process/Process.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Process.cpp
+)
+
+# Add an executable called 'Kyros' from source 'main.cpp'
 add_executable(
     Kyros 
     ${SOURCES}
+    ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
 )
 
@@ -33,6 +40,7 @@ endif()
 target_include_directories(
     Kyros
     PRIVATE
+    ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/dependancies
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
