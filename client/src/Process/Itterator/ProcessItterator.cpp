@@ -1,4 +1,4 @@
-#include "../../include/ProcessItterator/ProcessItterator.h"
+#include "../../include/Process/Itterator/ProcessItterator.h"
 
 ProcessItterator::ProcessItterator() 
 :   processCount(1024), 
@@ -70,4 +70,5 @@ bool ProcessItterator::captureProcessIds()
 void ProcessItterator::reset() 
 {
     currentIndex = 0;
+    this->captureProcessIds();
 }

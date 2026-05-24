@@ -4,24 +4,41 @@
 Process::Process() 
 :   processId(0), 
     processHandle(INVALID_HANDLE_VALUE), 
-    running(false) 
+    running(false),
+    metadata(nullptr)
+{}
+
+Process::Process(DWORD processId) 
+:   processId(processId), 
+    processHandle(INVALID_HANDLE_VALUE), 
+    running(true),
+    metadata(nullptr)
 {
     processHandle = this->getProcessHandle();
     if (processHandle != INVALID_HANDLE_VALUE)
     {
         this->processName = this->setProcessName();
     }
+
+    if (this->metadata == nullptr)
+    {
+        this->metadata = std::make_shared<ProcessMetadata>(this->processName, this->processId, this->running);
+    }
 }
 
-Process::Process(DWORD processId) 
-:   processId(processId), 
-    processHandle(INVALID_HANDLE_VALUE), 
-    running(false) 
+void Process::reset(DWORD processId)
 {
-    processHandle = this->getProcessHandle();
-    if (processHandle != INVALID_HANDLE_VALUE)
+    this->processId = processId;
+    this->running = true;
+    this->processHandle = this->getProcessHandle();
+    if (this->processHandle != INVALID_HANDLE_VALUE)
     {
         this->processName = this->setProcessName();
+    }
+
+    if (this->metadata == nullptr)
+    {
+        this->metadata = std::make_shared<ProcessMetadata>(this->processName, this->processId, this->running);
     }
 }
 
@@ -60,6 +77,13 @@ bool Process::kill()
     {
         bool isTerminated = TerminateProcess(processHandle, 0);
         this->running = isTerminated;
+        
+        if (this->metadata != nullptr)
+        {
+            this->metadata->running = isTerminated;
+        }
+
+        this->processHandle = INVALID_HANDLE_VALUE;
         return isTerminated;
     }
     catch(const std::exception& e)

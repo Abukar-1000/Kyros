@@ -1,36 +1,18 @@
 #include <iostream>
 #include <vector>
-#include "./include/ProcessItterator/ProcessItterator.h"
+#include "./include/Process/Context/ProcessContext.h"
+#include "./include/Process/Observer/ProcessObserver.h"
+#include "./include/Process/Itterator/ProcessItterator.h"
 #include "./include/Process/Process.h"
 
 int main() {
     std::cout << "Hello, World! Kyros" << std::endl;
-    const size_t processCount = 1024;
-    std::vector<Process> processes(processCount);
-
-    auto processItterator = ProcessItterator();
-    while (processItterator.hasNext())
-    {
-        Process process(processItterator.current());
-        std::cout << process.toString() << std::endl;
-        processes.push_back(process);
-        processItterator.next();
-    }
-    
-    bool searching = true;
-    std::string targetProcess = "Discord";
-    while (searching)
-    {
-        for (Process& process : processes)
-        {
-            if (process.getProcessName().find(targetProcess) != std::string::npos)
-            {
-                std::cout << "Killing process: " << process.toString() << std::endl;
-                process.kill();
-            }
-        }
-        
-        Sleep(1000);
-    }
+    auto pContext = ProcessContext();
+    auto pObserver = std::make_shared<ProcessObserver>();
+    pContext.attach(pObserver);
+    pContext.markCurrProcesses();
+    pContext.notify();
+    pContext.detach(pObserver);
+    std::cout << "Detached observer. No updates should be received." << std::endl;
     return 0;
 }

@@ -15,22 +15,32 @@ set(
 
 set(
     PROCESS_ITTERATOR_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/ProcessItterator/ProcessItterator.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/ProcessItterator/ProcessItterator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Process/Itterator/ProcessItterator.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Itterator/ProcessItterator.cpp
 )
 
 set(
     PROCESS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Process/Process.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Process.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Process.cpp 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Process/Metadata/ProcessMetadata.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Metadata/ProcessMetadata.cpp
 )
 
+set(
+    PROCESS_OBSERVER_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Process/Context/ProcessContext.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Process/Observer/ProcessObserver.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Observer/ProcessObserver.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Context/ProcessContext.cpp
+)
 # Add an executable called 'Kyros' from source 'main.cpp'
 add_executable(
     Kyros 
     ${SOURCES}
     ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
+    ${PROCESS_OBSERVER_SOURCES}
 )
 
 if(MSVC)
@@ -42,6 +52,7 @@ target_include_directories(
     PRIVATE
     ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
+    ${PROCESS_OBSERVER_SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/dependancies
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
