@@ -1,0 +1,15 @@
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\bin\Debug\net8.0\tmp.exe
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\bin\Debug\net8.0\tmp.deps.json
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\bin\Debug\net8.0\tmp.runtimeconfig.json
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\bin\Debug\net8.0\tmp.dll
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\bin\Debug\net8.0\tmp.pdb
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.AssemblyInfoInputs.cache
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.AssemblyInfo.cs
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.csproj.CoreCompileInputs.cache
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.sourcelink.json
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.dll
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\refint\tmp.dll
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.pdb
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\tmp.genruntimeconfig.cache
+C:\Users\Abuka\OneDrive\Desktop\projects\Cpp\Kyros\backend\tmp\tmp\obj\Debug\net8.0\ref\tmp.dll

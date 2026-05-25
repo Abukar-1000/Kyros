@@ -16,49 +16,49 @@ Pipe PipeBuilder::build(void)
     );
 }
 
-PipeBuilder PipeBuilder::withName(std::wstring name)
+PipeBuilder& PipeBuilder::withName(std::wstring name)
 {
     this->name = name;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withOpenMode(DWORD openMode)
+PipeBuilder& PipeBuilder::withOpenMode(DWORD openMode)
 {
     this->openMode = openMode;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withPipeMode(DWORD pipeMode)
+PipeBuilder& PipeBuilder::withPipeMode(DWORD pipeMode)
 {
     this->pipeMode = pipeMode;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withMaxInstances(size_t maxInstances)
+PipeBuilder& PipeBuilder::withMaxInstances(size_t maxInstances)
 {
     this->maxInstances = maxInstances;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withInBufferSize(size_t inBufferSize)
+PipeBuilder& PipeBuilder::withInBufferSize(size_t inBufferSize)
 {
     this->inBufferSize = inBufferSize;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withOutBufferSize(size_t outBufferSize)
+PipeBuilder& PipeBuilder::withOutBufferSize(size_t outBufferSize)
 {
     this->outBufferSize = outBufferSize;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withDefaultTimeout(size_t defaultTimeout)
+PipeBuilder& PipeBuilder::withDefaultTimeout(size_t defaultTimeout)
 {
     this->defaultTimeout = defaultTimeout;
     return *this;
 }
 
-PipeBuilder PipeBuilder::withSecurityAttributes(LPSECURITY_ATTRIBUTES securityAttributes)
+PipeBuilder& PipeBuilder::withSecurityAttributes(LPSECURITY_ATTRIBUTES securityAttributes)
 {
     this->securityAttributes = securityAttributes;
     return *this;

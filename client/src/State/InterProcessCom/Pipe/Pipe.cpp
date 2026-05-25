@@ -36,36 +36,28 @@ Pipe::Pipe(
     }
 }
 
-template<typename K>
-K Pipe::receive(void)
+bool Pipe::sendBytes(const std::byte* buffer, size_t size)
 {
+    DWORD bytesWritten = 0;
     bool success = true;
-    DWORD bytesRead = 0;
-    K buffer;
-
     if (this->handle == INVALID_HANDLE_VALUE)
     {
         /* logg */
-        return buffer;
+        return false;
     }
 
-    size_t totalBytes = sizeof(K);
-    size_t bytesReceived = 0;
-    DWORD chunkBytesRead = 0;
-
-    std::byte* bufferPtr = reinterpret_cast<std::byte*>(&buffer);
-
-    while (bytesReceived < totalBytes)
+    DWORD chunkBytesWritten = 0;
+    while (bytesWritten < size)
     {
-        chunkBytesRead = 0;
-        bool isSuccess = ReadFile(
+        chunkBytesWritten = 0;
+        bool isSuccess = WriteFile(
             this->handle,
-            bufferPtr + bytesReceived,
-            static_cast<DWORD>(totalBytes - bytesReceived),
-            &chunkBytesRead,
-            nullptr
+            static_cast<const char*>((void*) buffer) + bytesWritten,
+            static_cast<DWORD>(size - bytesWritten),
+            &chunkBytesWritten,
+            NULL
         );
-        
+
         success = success && isSuccess;
         if (!isSuccess)
         {
@@ -73,49 +65,36 @@ K Pipe::receive(void)
             break;
         }
 
-        bytesReceived += chunkBytesRead;
+        bytesWritten += chunkBytesWritten;
+
+        std::cout << "Written: " << chunkBytesWritten << " Total: " << bytesWritten << std::endl;
     }
-    
+
     if (!success)
     {
         /* logg */
     }
 
-    return buffer;
+    return success;
 }
 
-template<typename T>
-bool Pipe::send(T data)
+bool Pipe::sendString(const char* buffer, size_t size)
 {
     DWORD bytesWritten = 0;
-    bool success = false;
+    bool success = true;
     if (this->handle == INVALID_HANDLE_VALUE)
     {
         /* logg */
         return false;
     }
 
-    if (std::is_same<T, std::string>)
-    {
-        const char* buffer = data.c_str();
-        success = WriteFile(
-            this->handle,
-            data.c_str(),
-            static_cast<DWORD>(data.size()),
-            &bytesWritten,
-            nullptr
-        );
-    }
-    else
-    {
-        success = WriteFile(
-            this->handle,
-            &data,
-            sizeof(T),
-            &bytesWritten,
-            nullptr
-        );
-    }
+    success = WriteFile(
+        this->handle,
+        buffer,
+        static_cast<DWORD>(size + 1),
+        &bytesWritten,
+        NULL
+    );
 
     if (!success)
     {

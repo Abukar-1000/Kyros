@@ -1,3 +1,4 @@
 client/build/*
 client/tests/dependencies/*
 client/tests/tests/*
+backend/tmp/tmp/bin/*

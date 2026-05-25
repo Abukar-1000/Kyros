@@ -18,14 +18,14 @@ class PipeBuilder
     public:
         PipeBuilder(void);
         ~PipeBuilder(void) = default;
-        PipeBuilder withName(std::wstring name);
-        PipeBuilder withOpenMode(DWORD openMode);
-        PipeBuilder withPipeMode(DWORD pipeMode);
-        PipeBuilder withMaxInstances(size_t maxInstances);
-        PipeBuilder withInBufferSize(size_t inBufferSize);
-        PipeBuilder withOutBufferSize(size_t outBufferSize);
-        PipeBuilder withDefaultTimeout(size_t defaultTimeout);
-        PipeBuilder withSecurityAttributes(LPSECURITY_ATTRIBUTES securityAttributes);
+        PipeBuilder& withName(std::wstring name);
+        PipeBuilder& withOpenMode(DWORD openMode);
+        PipeBuilder& withPipeMode(DWORD pipeMode);
+        PipeBuilder& withMaxInstances(size_t maxInstances);
+        PipeBuilder& withInBufferSize(size_t inBufferSize);
+        PipeBuilder& withOutBufferSize(size_t outBufferSize);
+        PipeBuilder& withDefaultTimeout(size_t defaultTimeout);
+        PipeBuilder& withSecurityAttributes(LPSECURITY_ATTRIBUTES securityAttributes);
         Pipe build(void);
 };
 

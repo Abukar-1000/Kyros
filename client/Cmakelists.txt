@@ -42,6 +42,9 @@ set(
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include/State/InterProcessCom/PipeBuilder/PipeBuilder.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/State/InterProcessCom/PipeBuilder/PipeBuilder.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/State/BinaryBuilder/BinaryBuilder.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/State/BinaryBuilder/BinaryBuilder.cpp
 )
 
 # Add an executable called 'Kyros' from source 'main.cpp'

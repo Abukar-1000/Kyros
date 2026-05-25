@@ -16,10 +16,17 @@ class BinaryBuilder
         std::shared_ptr<std::vector<std::byte>> binaryData;
     public:
         BinaryBuilder();
-        ~BinaryBuilder();
+        ~BinaryBuilder() = default;
         BinaryBuilder(size_t initialSize);
+
         template<typename T>
-        BinaryBuilder* with(T value);
+        BinaryBuilder& with(T value)
+        {
+            const std::byte* bytePtr = reinterpret_cast<const std::byte*>(&value);
+            binaryData->insert(binaryData->end(), bytePtr, bytePtr + sizeof(T));
+            return *this;
+        }
+
         std::shared_ptr<std::vector<std::byte>> build(void);
 };
 
