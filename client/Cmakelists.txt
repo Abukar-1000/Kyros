@@ -34,6 +34,16 @@ set(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Observer/ProcessObserver.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Process/Context/ProcessContext.cpp
 )
+
+set(
+    INTER_PROCESS_COMMUNICATION_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/State/InterProcessCom/Pipe/Pipe.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/State/InterProcessCom/Pipe/Pipe.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/State/InterProcessCom/PipeBuilder/PipeBuilder.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/State/InterProcessCom/PipeBuilder/PipeBuilder.cpp
+)
+
 # Add an executable called 'Kyros' from source 'main.cpp'
 add_executable(
     Kyros 
@@ -41,6 +51,7 @@ add_executable(
     ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
     ${PROCESS_OBSERVER_SOURCES}
+    ${INTER_PROCESS_COMMUNICATION_SOURCES}
 )
 
 if(MSVC)
@@ -53,6 +64,7 @@ target_include_directories(
     ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
     ${PROCESS_OBSERVER_SOURCES}
+    ${INTER_PROCESS_COMMUNICATION_SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/dependancies
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
