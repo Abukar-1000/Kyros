@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using Process.Models;
 
 class Program
@@ -8,10 +9,35 @@ class Program
     static void Main()
     {
         Console.WriteLine("Connecting to C++ Pipe Server...");
-        using var pipeClient = new NamedPipeClientStream(".", "ProcessPipe", PipeDirection.InOut);
+        using var pipeClient = new NamedPipeClientStream(
+            ".", 
+            "ProcessPipe",
+            PipeDirection.In
+        );
+
         pipeClient.Connect();
         Console.WriteLine("Connected!");
 
+        List<ProcessInfo> receivedProcesses = new List<ProcessInfo>();
+        while (pipeClient.IsConnected)
+        {
+            //
+            ProcessInfo? processInfo = GetObj(pipeClient);
+            if (processInfo == null)
+            {
+                continue;
+            }
+
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine($"[Received] Process ID:   {processInfo.Value.ProcessId}");
+            Console.WriteLine($"[Received] Process Name: {processInfo.Value.ProcessName}");
+            receivedProcesses.Add(processInfo.Value);
+        }
+        Console.WriteLine($"Total processes received: {receivedProcesses.Count}");
+    }
+
+    static ProcessInfo? GetObj(NamedPipeClientStream pipeClient)
+    {
         // 1. Calculate the exact expected size of the struct (Should be exactly 260)
         int expectedSize = Marshal.SizeOf<ProcessInfo>();
         byte[] buffer = new byte[expectedSize];
@@ -26,7 +52,7 @@ class Program
             if (read == 0) 
             {
                 Console.WriteLine("Pipe disconnected prematurely.");
-                return;
+                return null;
             }
             totalBytesRead += read;
             Console.WriteLine($"Total bytes read: {totalBytesRead} of {expectedSize} bytes");
@@ -42,45 +68,16 @@ class Program
             // Reconstruct the unmanaged memory layout into your C# struct
             ProcessInfo receivedData = (ProcessInfo)Marshal.PtrToStructure(ptr, typeof(ProcessInfo))!;
 
-            // 4. Output the validated data
-            Console.WriteLine("\n--- Data Destructured Successfully ---");
-            Console.WriteLine($"Process ID:   {receivedData.ProcessId}");
-            Console.WriteLine($"Process Name: {receivedData.ProcessName}");
+            return receivedData;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during struct reconstruction: {ex.Message}");
+            return null;
         }
         finally
         {
             // Always free the allocated unmanaged memory block to prevent memory leaks
-            Marshal.FreeHGlobal(ptr);
-        }
-
-        // 1. Create your response data object
-        ProcessInfo responseData = new ProcessInfo
-        {
-            ProcessId = 9999,
-            ProcessName = "CsharpResponse.exe"
-        };
-
-        // 2. Allocate an unmanaged buffer to hold the struct bytes
-        int size = Marshal.SizeOf<ProcessInfo>(); // 260 bytes
-        byte[] sendBuffer = new byte[size];
-        ptr = Marshal.AllocHGlobal(size);
-
-        try
-        {
-            // Copy the C# struct data into the unmanaged pointer
-            Marshal.StructureToPtr(responseData, ptr, false);
-            
-            // Copy from unmanaged memory into our managed byte array
-            Marshal.Copy(ptr, sendBuffer, 0, size);
-            
-            // 3. Write the 260 bytes directly to the C++ server pipe
-            Console.WriteLine("Sending response struct back to C++...");
-            pipeClient.Write(sendBuffer, 0, size);
-            pipeClient.Flush(); // Ensure the data leaves the C# buffer immediately
-            Console.WriteLine("Response sent!");
-        }
-        finally
-        {
             Marshal.FreeHGlobal(ptr);
         }
     }

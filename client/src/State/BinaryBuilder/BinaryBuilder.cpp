@@ -16,3 +16,8 @@ std::shared_ptr<std::vector<std::byte>> BinaryBuilder::build(void)
 {
     return binaryData;
 }
+
+void BinaryBuilder::reset(void)
+{
+    binaryData->clear();
+}

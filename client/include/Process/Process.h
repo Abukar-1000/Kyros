@@ -31,6 +31,10 @@ class Process
         std::shared_ptr<ProcessMetadata> getMetadata(void) const;
 };
 
+inline DWORD Process::getProcessId(void) 
+{
+    return processId;
+}
 
 inline bool Process::isRunning(void) 
 {

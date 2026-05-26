@@ -27,6 +27,7 @@ class BinaryBuilder
             return *this;
         }
 
+        void reset(void);
         std::shared_ptr<std::vector<std::byte>> build(void);
 };
 
