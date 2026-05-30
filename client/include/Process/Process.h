@@ -1,5 +1,6 @@
 #ifndef PROCESS_H
 #define PROCESS_H
+#include <iostream>
 #include <windows.h>
 #include <cstdlib>
 #include <string>

@@ -82,6 +82,7 @@ bool Process::kill()
             return false;
         }
         
+        std::cout << "Killing process: " << this->toString() << std::endl;
         bool isTerminated = TerminateProcess(processHandle, 0);
         this->running = isTerminated;
         

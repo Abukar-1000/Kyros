@@ -12,6 +12,5 @@ class CommandWorker : public IBGWorker
         void act() override;
     public:
         CommandWorker();
-        ~CommandWorker() override = default;
 };
 #endif // COMMAND_WORKER_H

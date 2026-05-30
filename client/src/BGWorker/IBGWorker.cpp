@@ -65,10 +65,18 @@ void IBGWorker::stop()
 
     std::cout << "Stopping..." << std::endl;
     context->commandParams->running = false;
-    if (joinable && thread != nullptr && thread->joinable())
+    
+    const bool safeToJoin = (
+        thread != nullptr && 
+        this->thread->get_id() != std::this_thread::get_id() && 
+        joinable && thread->joinable()
+    );
+    
+    if (safeToJoin)
     {
         thread->join();
     }
+    std::cout << "Stopping DONE..." << std::endl;
 }
 
 void IBGWorker::pause()
@@ -81,10 +89,4 @@ void IBGWorker::pause()
 void IBGWorker::join()
 {
     joinable = true;
-}
-
-IBGWorker::~IBGWorker()
-{
-    std::cout << "Destroying..." << std::endl;
-    this->stop();
 }

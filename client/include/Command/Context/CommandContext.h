@@ -17,6 +17,7 @@ class CommandContext
         ~CommandContext() = default;
         std::shared_ptr<ProcessItterator> processItterator;
         std::shared_ptr<ProcessList> processList;
+        void markAndSweep(void);
 };
 
 #endif // COMMAND_CONTEXT_H

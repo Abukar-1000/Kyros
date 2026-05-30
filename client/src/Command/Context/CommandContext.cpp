@@ -28,3 +28,16 @@ void CommandContext::configureCurrProcesses(void)
         processItterator->next();
     }
 }
+
+void CommandContext::markAndSweep(void)
+{
+    this->processItterator->reset();
+    for (size_t i = 0; processItterator->hasNext(); i++)
+    {
+        if(this->processList->at(i).getProcessId() != processItterator->current())
+        {
+            this->processList->at(i).reset(processItterator->current());
+        }
+        processItterator->next();
+    }
+}

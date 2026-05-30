@@ -27,7 +27,7 @@ int main() {
     commandWorker.join();
     commandWorker.start();
 
-    Sleep(30 * 1000);
+    Sleep(10 * 1000);
 
     std::cout << "\nPausing...\n" << std::endl;
     context->commandParams->paused = true;

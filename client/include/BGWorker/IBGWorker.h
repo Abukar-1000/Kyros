@@ -19,7 +19,7 @@ class IBGWorker
         IBGWorker();
         IBGWorker(bool joinable);
         IBGWorker(bool running, bool paused);
-        virtual ~IBGWorker();
+        ~IBGWorker() = default;
         virtual void start(); 
         virtual void stop();
         virtual void join();
