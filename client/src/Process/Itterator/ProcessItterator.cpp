@@ -60,6 +60,7 @@ bool ProcessItterator::captureProcessIds()
     DWORD bytesReturned = 0;
     bool captured = EnumProcesses(processIds.data(), processIds.size() * sizeof(DWORD), &bytesReturned);
     if (!captured) {
+        /* logg here */
         std::cout << "Failed to capture process IDs. Error code: " << GetLastError() << std::endl;
     }
 

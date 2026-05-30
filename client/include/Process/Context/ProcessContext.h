@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <vector>
 #include <memory>
+#include <string>
 #include "../../State/Subject/ISubject.h"
 #include "../../State/Observer/IObserver.h"
 #include "../Itterator/ProcessItterator.h"
@@ -12,6 +13,7 @@ using SharedProcessList = std::shared_ptr<std::vector<Process>>;
 class ProcessContext: public ISubject<SharedProcessList>
 {
     private:
+        size_t endIndex;
         size_t maxObserverCount;
         SharedProcessList currProcesses;
         ProcessItterator processItterator;
@@ -27,6 +29,8 @@ class ProcessContext: public ISubject<SharedProcessList>
         void markCurrProcesses(void);
         void notify() override;
         DWORD getProcessId();
+        void moveDeadProcessesToEnd();
+        bool killProcess(std::string processName);
 };
 
 #endif // PROCESS_CONTEXT_H

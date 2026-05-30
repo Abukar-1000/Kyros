@@ -75,3 +75,45 @@ void ProcessContext::detach(std::shared_ptr<IObserver<SharedProcessList>> observ
 
     observers.erase(observers.begin() + index);
 }
+
+bool ProcessContext::killProcess(std::string processName)
+{
+    for (size_t i = 0; i < currProcesses->size(); i++)
+    {
+        auto process = currProcesses->at(i);
+        if (process.getProcessName() == processName)
+        {
+            return process.kill();
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @brief Likely to be deprecated in the future, this function moves all dead processes to the end of the list.
+ * 
+ */
+void ProcessContext::moveDeadProcessesToEnd()
+{
+    size_t left = 0;
+    this->endIndex = currProcesses->size() - 1;
+    bool isUnderflow = this->endIndex > this->currProcesses->size();
+    
+    if (isUnderflow)
+    {
+        return;
+    }
+
+    while (left < this->endIndex)
+    {
+        if (!currProcesses->at(left).isRunning())
+        {
+            std::swap(currProcesses->at(left), currProcesses->at(endIndex));
+            endIndex--;
+            continue;
+        } 
+
+        left++;
+    }
+}

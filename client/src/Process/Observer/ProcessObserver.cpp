@@ -39,7 +39,7 @@ void ProcessObserver::update(SharedProcessList value)
             continue;
         }
 
-        metadata.withValues(process.getProcessId(), process.getProcessName().c_str());
+        metadata.withValues(process.getProcessId(), process.getProcessName().c_str(), process.isRunning());
         auto binaryData = this->binaryBuilder->with(metadata).build();
         this->pipe->send<std::vector<std::byte>>(*binaryData);
         count++;

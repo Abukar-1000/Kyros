@@ -47,6 +47,33 @@ set(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/State/BinaryBuilder/BinaryBuilder.cpp
 )
 
+set(
+    COMMAND_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Context/CommandContextSingleton.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Context/CommandContextSingleton.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Process/DeleteCommand.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Process/DeleteCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Context/CommandContext.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Context/CommandContext.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Visitors/ProcessVisitor.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Visitors/ProcessVisitor.cpp
+)
+
+set(
+    BGWORKER_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/IBGWorker.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/IBGWorker.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Command/CommandWorker.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Command/CommandWorker.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Context/BGWorkerContext.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Context/BGWorkerContext.cpp
+    
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Context/BGWorkerContextSingleton.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Context/BGWorkerContextSingleton.cpp
+)
+
 # Add an executable called 'Kyros' from source 'main.cpp'
 add_executable(
     Kyros 
@@ -55,6 +82,8 @@ add_executable(
     ${PROCESS_ITTERATOR_SOURCES}
     ${PROCESS_OBSERVER_SOURCES}
     ${INTER_PROCESS_COMMUNICATION_SOURCES}
+    ${COMMAND_SOURCES}
+    ${BGWORKER_SOURCES}
 )
 
 if(MSVC)
@@ -68,6 +97,8 @@ target_include_directories(
     ${PROCESS_ITTERATOR_SOURCES}
     ${PROCESS_OBSERVER_SOURCES}
     ${INTER_PROCESS_COMMUNICATION_SOURCES}
+    ${COMMAND_SOURCES}
+    ${BGWORKER_SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/dependancies
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header

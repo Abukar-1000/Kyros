@@ -75,6 +75,13 @@ bool Process::kill()
 {
     try
     {
+        if (processHandle == INVALID_HANDLE_VALUE ||
+            this->running == false || 
+            processHandle == NULL)
+        {
+            return false;
+        }
+        
         bool isTerminated = TerminateProcess(processHandle, 0);
         this->running = isTerminated;
         

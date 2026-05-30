@@ -9,12 +9,14 @@ namespace Models::Process::InterProcessCom
     {
         uint32_t processId;
         char processName[256];
+        uint8_t isRunning;
 
-        void withValues(uint32_t processId, const char* processName)
+        void withValues(uint32_t processId, const char* processName, bool isRunning = true)
         {
             this->processId = processId;
             strncpy(this->processName, processName, sizeof(this->processName) - 1);
-            this->processName[sizeof(this->processName) - 1] = '\0'; // Ensure null-termination
+            this->processName[sizeof(this->processName) - 1] = '\0';
+            this->isRunning = isRunning;
         }
     };
 }

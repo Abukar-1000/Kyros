@@ -31,6 +31,7 @@ class Program
             Console.WriteLine("--------------------------------------");
             Console.WriteLine($"[Received] Process ID:   {processInfo.Value.ProcessId}");
             Console.WriteLine($"[Received] Process Name: {processInfo.Value.ProcessName}");
+            Console.WriteLine($"[Received] Is Running:  {processInfo.Value.IsRunning}");
             receivedProcesses.Add(processInfo.Value);
         }
         Console.WriteLine($"Total processes received: {receivedProcesses.Count}");

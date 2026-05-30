@@ -9,5 +9,7 @@ namespace Process.Models
 
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
         public string ProcessName;
+
+        public byte IsRunning;
     }
 }
