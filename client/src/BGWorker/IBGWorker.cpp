@@ -1,7 +1,8 @@
 #include "../../include/BGWorker/IBGWorker.h"
 
 IBGWorker::IBGWorker()
-:   thread(nullptr)
+:   thread(nullptr),
+    pipes(std::make_unique<std::vector<Pipe>>())
 {
     auto context = BGWorkerContextSingleton::get();
     context->commandParams->running = false;
@@ -10,7 +11,8 @@ IBGWorker::IBGWorker()
 
 IBGWorker::IBGWorker(bool joinable)
 :   joinable(joinable), 
-    thread(nullptr)
+    thread(nullptr),
+    pipes(std::make_unique<std::vector<Pipe>>())
 {
     auto context = BGWorkerContextSingleton::get();
     context->commandParams->running = false;
@@ -18,7 +20,8 @@ IBGWorker::IBGWorker(bool joinable)
 }
 
 IBGWorker::IBGWorker(bool running, bool paused)
-:   thread(nullptr)
+:   thread(nullptr),
+    pipes(std::make_unique<std::vector<Pipe>>())
 {
     auto context = BGWorkerContextSingleton::get();
     context->commandParams->running = running;
@@ -64,7 +67,6 @@ void IBGWorker::stop()
     }
 
     std::cout << "Stopping..." << std::endl;
-    context->commandParams->running = false;
     
     const bool safeToJoin = (
         thread != nullptr && 
@@ -75,7 +77,9 @@ void IBGWorker::stop()
     if (safeToJoin)
     {
         thread->join();
+        context->commandParams->running = false;
     }
+
     std::cout << "Stopping DONE..." << std::endl;
 }
 

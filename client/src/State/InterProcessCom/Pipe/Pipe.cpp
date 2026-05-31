@@ -117,12 +117,6 @@ void Pipe::close(void)
 
 bool Pipe::connect(void)
 {
-    if (this->handle == INVALID_HANDLE_VALUE)
-    {
-        /* logg */
-        return false;
-    }
-
     bool isConnected = ConnectNamedPipe(this->handle, nullptr);
     if (!isConnected)
     {
@@ -132,4 +126,25 @@ bool Pipe::connect(void)
     }
 
     return isConnected;
+}
+
+bool Pipe::hasData(void)
+{
+    if (this->handle == INVALID_HANDLE_VALUE)
+    {
+        return false;
+    }
+
+    DWORD bytesAvailable = 0;
+    DWORD bytesLeft = 0;
+    bool success = PeekNamedPipe(
+        this->handle,
+        NULL,
+        0,
+        NULL,
+        &bytesAvailable,
+        &bytesLeft
+    );
+
+    return success && bytesAvailable > 0;
 }

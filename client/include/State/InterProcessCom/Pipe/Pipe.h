@@ -42,6 +42,8 @@ class Pipe
         template<typename T>
         bool send(T data);
         
+        bool hasData(void);
+        
         void close(void);
 };
 
