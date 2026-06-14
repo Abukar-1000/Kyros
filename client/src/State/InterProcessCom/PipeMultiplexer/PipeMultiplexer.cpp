@@ -36,7 +36,13 @@ void PipeMultiplexer::dispatch(void)
             break;
         }
 
-         /* Read & Handle dispatch here */
+        /* Read & Handle dispatch here */
         ++i;
     }
 }
+
+void PipeMultiplexer::setPipeCount(size_t count)
+{
+    this->pipes->reserve(count);
+}
+

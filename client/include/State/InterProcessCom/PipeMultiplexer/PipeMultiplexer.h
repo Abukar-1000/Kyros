@@ -14,6 +14,7 @@ class PipeMultiplexer {
         PipeMultiplexer();
         PipeMultiplexer(std::vector<Pipe>& pipes);
         ~PipeMultiplexer() = default;
+        void setPipeCount(size_t count);
         void markReadyPipes(void);
         void dispatch(void);
 };
