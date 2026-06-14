@@ -1,11 +1,12 @@
 #ifndef COMMAND_CONTEXT_H
 #define COMMAND_CONTEXT_H
 #include <memory>
-#include <vector>
+#include <unordered_map>
+#include <algorithm>
 #include "../../Process/Itterator/ProcessItterator.h"
 #include "../../Process/Process.h"
 
-using ProcessList = std::vector<Process>;
+using ProcessMap = std::unordered_map<DWORD, Process>;
 class CommandContext
 {
     private:
@@ -16,7 +17,7 @@ class CommandContext
         CommandContext(size_t processCount);
         ~CommandContext() = default;
         std::shared_ptr<ProcessItterator> processItterator;
-        std::shared_ptr<ProcessList> processList;
+        std::shared_ptr<ProcessMap> processMap;
         void markAndSweep(void);
 };
 

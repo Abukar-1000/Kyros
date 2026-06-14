@@ -18,11 +18,11 @@ void DeleteCommand::execute()
     auto context = CommandContextSingleton::get();
     
     context->markAndSweep();
-    for (size_t i = 0; i < context->processList->size(); i++)
+    for (auto it = context->processMap->begin(); it != context->processMap->end(); it++)
     {
-        if (context->processList->at(i).getProcessName() == targetProcessName)
+        if (it->second.getProcessName() == targetProcessName)
         {
-            context->processList->at(i).kill();
+            it->second.kill();
         }
     }
 }

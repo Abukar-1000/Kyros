@@ -34,6 +34,16 @@ bool ProcessItterator::checkBounds()
     return true;
 }
 
+bool ProcessItterator::contains(DWORD processId) 
+{
+    for (size_t i = 0; i < this->processIds.size(); i++) {
+        if (processIds[i] == processId) {
+            return true;
+        }
+    }
+    return false;
+}
+
 DWORD ProcessItterator::current() 
 {
     auto result = this->checkBounds();

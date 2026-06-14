@@ -2,19 +2,19 @@
 
 CommandContext::CommandContext()
 :   processItterator(std::make_shared<ProcessItterator>()),
-    processList(std::make_shared<ProcessList>()),
+    processMap(std::make_shared<ProcessMap>()),
     processCount(1024)
 {
-    this->processList->reserve(1024);
+    this->processMap->reserve(1024);
     this->configureCurrProcesses();
 }
 
 CommandContext::CommandContext(size_t processCount)
 :   processItterator(std::make_shared<ProcessItterator>()),
-    processList(std::make_shared<ProcessList>()),
+    processMap(std::make_shared<ProcessMap>()),
     processCount(processCount)
 {
-    this->processList->reserve(processCount);
+    this->processMap->reserve(processCount);
     this->configureCurrProcesses();
 }
 
@@ -24,33 +24,53 @@ void CommandContext::configureCurrProcesses(void)
     for (size_t i = 0; processItterator->hasNext(); i++)
     {
         Process process(processItterator->current());
-        this->processList->push_back(process);
+        this->processMap->insert({
+            process.getProcessId(),
+            process
+        });
         processItterator->next();
     }
 }
 
 void CommandContext::markAndSweep(void)
 {
-    this->processItterator->reset();
-    size_t i = 0;
+    std::erase_if(*this->processMap, [this](const auto& pair) {
+        DWORD processId = pair.first;
+        Process process = pair.second;
+        return (
+            !process.isRunning() || 
+            !this->processItterator->contains(processId)
+        );
+    });
 
+    this->processItterator->reset();
+    ProcessMap freshMap;
     while (processItterator->hasNext())
     {
-        if (i >= this->processList->size())
+        DWORD processId = processItterator->current();
+        auto it = this->processMap->find(processId);
+        if (it != this->processMap->end())
         {
-            this->processList->push_back(Process(processItterator->current()));
+            if (it->second.isRunning())
+            {
+                this->processMap->insert({
+                    processId,
+                    it->second
+                });
+            }
         }
-        else if (this->processList->at(i).getProcessId() != processItterator->current())
+        else
         {
-            this->processList->at(i).reset(processItterator->current());
+            Process process(processId);
+            if (process.isRunning())
+            {
+                Process process(processId);
+                this->processMap->insert({
+                    processId,
+                    process
+                });
+            }
         }
-
         processItterator->next();
-        ++i;
-    }
-
-    if (this->processList->size() > i)
-    {
-        this->processList->resize(i);
     }
 }

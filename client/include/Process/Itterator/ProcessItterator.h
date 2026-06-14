@@ -17,10 +17,11 @@ class ProcessItterator
     public:
         ProcessItterator();
         ProcessItterator(size_t processCount);
+        bool contains(DWORD processId);
         bool hasNext();
         DWORD current();
         DWORD next();
         void reset();
 };
 
-#endif
+#endif // PROCESS_ITTERATOR_H
