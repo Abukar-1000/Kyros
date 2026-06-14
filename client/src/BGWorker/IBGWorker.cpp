@@ -5,8 +5,8 @@ IBGWorker::IBGWorker()
     pipes(std::make_unique<std::vector<Pipe>>())
 {
     auto context = BGWorkerContextSingleton::get();
-    context->commandParams->running = false;
-    context->commandParams->paused = false;
+    context->commandParams->setRunning(false);
+    context->commandParams->setPaused(false);
 }
 
 IBGWorker::IBGWorker(bool joinable)
@@ -15,8 +15,8 @@ IBGWorker::IBGWorker(bool joinable)
     pipes(std::make_unique<std::vector<Pipe>>())
 {
     auto context = BGWorkerContextSingleton::get();
-    context->commandParams->running = false;
-    context->commandParams->paused = false;
+    context->commandParams->setRunning(false);
+    context->commandParams->setPaused(false);
 }
 
 IBGWorker::IBGWorker(bool running, bool paused)
@@ -24,16 +24,16 @@ IBGWorker::IBGWorker(bool running, bool paused)
     pipes(std::make_unique<std::vector<Pipe>>())
 {
     auto context = BGWorkerContextSingleton::get();
-    context->commandParams->running = running;
-    context->commandParams->paused = paused;
+    context->commandParams->setRunning(running);
+    context->commandParams->setPaused(paused);
 }
 
 void IBGWorker::run()
 {
     auto context = BGWorkerContextSingleton::get();
-    while (context->commandParams->running)
+    while (context->commandParams->getRunning())
     {
-        if (context->commandParams->paused)
+        if (context->commandParams->getPaused())
         {
             std::cout << "<<Skipping execution>>" << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -48,20 +48,20 @@ void IBGWorker::run()
 void IBGWorker::start()
 {
     auto context = BGWorkerContextSingleton::get();
-    if (context->commandParams->running)
+    if (context->commandParams->getRunning())
     {
         return;
     }
 
     std::cout << "Starting..." << std::endl;
-    context->commandParams->running = true;
+    context->commandParams->setRunning(true);
     thread = std::make_unique<std::thread>(&IBGWorker::run, this);
 }
 
 void IBGWorker::stop()
 {
     auto context = BGWorkerContextSingleton::get();
-    if (!context->commandParams->running)
+    if (!context->commandParams->getRunning())
     {
         return;
     }
@@ -76,8 +76,8 @@ void IBGWorker::stop()
     
     if (safeToJoin)
     {
-        thread->join();
-        context->commandParams->running = false;
+        thread->detach();
+        context->commandParams->setRunning(false);
     }
 
     std::cout << "Stopping DONE..." << std::endl;
@@ -86,7 +86,7 @@ void IBGWorker::stop()
 void IBGWorker::pause()
 {
     auto context = BGWorkerContextSingleton::get();
-    context->commandParams->paused = true;
+    context->commandParams->setPaused(true);
     std::cout << "Paused" << std::endl;
 }
 

@@ -21,23 +21,26 @@ struct ProcessInfo
 };
 
 int main() {
+    DWORD time = 5;
     std::cout << "Hello, World! Kyros" << std::endl;
     auto context = BGWorkerContextSingleton::get();
     auto commandWorker = CommandWorker();
     commandWorker.join();
     commandWorker.start();
 
-    Sleep(10 * 1000);
+    Sleep(time * 1000);
 
     std::cout << "\nPausing...\n" << std::endl;
-    context->commandParams->paused = true;
+    context->commandParams->setPaused(true);
     
-    Sleep(10 * 1000);
+    Sleep(time * 1000);
     std::cout << "\nDisabling Pausing...\n" << std::endl;
-    context->commandParams->paused = false;
-    Sleep(10 * 1000);
+    context->commandParams->setPaused(false);
+    Sleep(time * 1000);
 
+    std::cout << "\nStopping...\n" << std::endl;
     commandWorker.stop();
+    std::cout << "\nStoped...\n" << std::endl;
     Sleep(3 * 1000);
     return 0;
 }

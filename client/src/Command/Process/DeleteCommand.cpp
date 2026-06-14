@@ -16,16 +16,13 @@ void DeleteCommand::accept(IProcessVisitor& visitor)
 void DeleteCommand::execute()
 {
     auto context = CommandContextSingleton::get();
-    std::cout << "killing\n" << std::endl;
     
     context->markAndSweep();
-    /* Lock */
     for (size_t i = 0; i < context->processList->size(); i++)
     {
         if (context->processList->at(i).getProcessName() == targetProcessName)
         {
             context->processList->at(i).kill();
-            // break;
         }
     }
 }

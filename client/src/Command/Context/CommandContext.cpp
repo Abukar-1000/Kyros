@@ -32,12 +32,25 @@ void CommandContext::configureCurrProcesses(void)
 void CommandContext::markAndSweep(void)
 {
     this->processItterator->reset();
-    for (size_t i = 0; processItterator->hasNext(); i++)
+    size_t i = 0;
+
+    while (processItterator->hasNext())
     {
-        if(this->processList->at(i).getProcessId() != processItterator->current())
+        if (i >= this->processList->size())
+        {
+            this->processList->push_back(Process(processItterator->current()));
+        }
+        else if (this->processList->at(i).getProcessId() != processItterator->current())
         {
             this->processList->at(i).reset(processItterator->current());
         }
+
         processItterator->next();
+        ++i;
+    }
+
+    if (this->processList->size() > i)
+    {
+        this->processList->resize(i);
     }
 }

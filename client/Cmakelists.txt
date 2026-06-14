@@ -61,11 +61,15 @@ set(
 
 set(
     BGWORKER_SOURCES
+    
     ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/IBGWorker.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/IBGWorker.cpp
-
+    
     ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Command/CommandWorker.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Command/CommandWorker.cpp
+    
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Context/BGWorkerParams.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Context/BGWorkerParams.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Context/BGWorkerContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Context/BGWorkerContext.cpp
