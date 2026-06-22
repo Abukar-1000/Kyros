@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "HzZDKYDwtBtrYJH7NF1aVXlFtOoBuQds7xxErKDp2COyotMvk4ou/YprEJLpt52zTLDwykC3sPZse1iGJjiSGQ==",
+  "dgSpecHash": "QMw3XSa9DdI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Abuka\\OneDrive\\Desktop\\projects\\Cpp\\Kyros\\backend\\tmp\\tmp\\tmp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\lilgo\\OneDrive\\Desktop\\projects\\cpp\\Kyros\\backend\\tmp\\tmp\\tmp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lilgo\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.28\\microsoft.netcore.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\lilgo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.28\\microsoft.windowsdesktop.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\lilgo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.28\\microsoft.aspnetcore.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\lilgo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.28\\microsoft.netcore.app.host.win-x64.8.0.28.nupkg.sha512"
+  ],
   "logs": []
 }

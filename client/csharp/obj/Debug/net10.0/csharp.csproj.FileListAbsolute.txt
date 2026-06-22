@@ -1,0 +1,15 @@
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\bin\Debug\net10.0\csharp.exe
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\bin\Debug\net10.0\csharp.deps.json
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\bin\Debug\net10.0\csharp.runtimeconfig.json
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\bin\Debug\net10.0\csharp.dll
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\bin\Debug\net10.0\csharp.pdb
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.AssemblyInfoInputs.cache
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.AssemblyInfo.cs
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.csproj.CoreCompileInputs.cache
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.sourcelink.json
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.dll
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\refint\csharp.dll
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.pdb
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\csharp.genruntimeconfig.cache
+C:\Users\lilgo\OneDrive\Desktop\projects\cpp\Kyros\client\csharp\obj\Debug\net10.0\ref\csharp.dll
