@@ -14,6 +14,7 @@
 #include "./include/BGWorker/Context/BGWorkerContext.h"
 #include "./include/BGWorker/Context/BGWorkerContextSingleton.h"
 #include "./include/BGWorker/Gateway/GatewayWorker.h"
+#include "./models/Process/KillFrame.h"
 
 struct ProcessInfo
 {
@@ -24,10 +25,14 @@ struct ProcessInfo
 int main() {
     DWORD time = 50000;
     std::cout << "Hello, World! Kyros" << std::endl;
-    
+
+    std::cout << "using kill frame" << std::endl;
+    Models::Process::InterProcessCom::KillFrame frame {};
     auto gatewayWorker = GatewayWorker();
-    gatewayWorker.start();
-    gatewayWorker.join();
+    auto commandWorker = CommandWorker();
+
+    gatewayWorker.start(true);
+    commandWorker.start(true);
     Sleep(time * 1000);
     return 0;
 }

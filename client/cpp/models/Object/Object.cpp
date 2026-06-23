@@ -2,26 +2,19 @@
 
 Object::Object()
 :   data(nullptr),
-    id(NULL)
+    id(NULL),
+    executed(false)
 {}
 
 Object::Object(const std::vector<std::byte>& _data)
-:    id(NULL)
+:   id(NULL),
+    executed(false)
 {
-    if (_data.size() < 2)
-    {
-        std::cout << "Data size is too small to contain an id." << "\n";
-    }
-    else 
-    {
-        std::cout << "Data size is sufficient to contain an id." << "\n";
-    }
-
     this->data = std::make_shared<std::vector<std::byte>>(
         std::vector<std::byte>(_data.begin(), _data.end())
     );
 
-    std::cout << "Obj construction  " << "\n";
+    // std::cout << "Obj construction  " << "\n";
     if (this->data != nullptr && this->data->size() >= 2)
     {
         this->id = (
@@ -30,7 +23,7 @@ Object::Object(const std::vector<std::byte>& _data)
         );
         std::cout << "Id created: " << this->id << "\n";
     }
-    std::cout << "Data moved: " << this->id << "\n";
+    // std::cout << "Data moved: " << this->id << "\n";
 }
 
 void Object::withData(std::vector<std::byte> data)
@@ -53,4 +46,15 @@ std::vector<std::byte> Object::release()
 const uint16_t Object::getId()
 {
     return this->id;
+}
+
+Object& Object::operator=(const Object& other)
+{
+    if (this != &other)
+    {
+        this->id = other.id;
+        this->data = other.data;
+        this->executed = other.executed;
+    }
+    return *this;
 }

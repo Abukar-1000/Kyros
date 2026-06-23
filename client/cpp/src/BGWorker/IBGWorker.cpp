@@ -45,17 +45,19 @@ void IBGWorker::run()
     }
 }
 
-void IBGWorker::start()
+void IBGWorker::start(bool detached)
 {
     auto context = BGWorkerContextSingleton::get();
-    if (context->commandParams->getRunning())
-    {
-        return;
-    }
+    // if (context->commandParams->getRunning())
+    // {
+    //     return;
+    // }
 
     std::cout << "Starting..." << std::endl;
     context->commandParams->setRunning(true);
     thread = std::make_unique<std::thread>(&IBGWorker::run, this);
+    thread->detach();
+    std::cout << "Detached " << std::endl;
 }
 
 void IBGWorker::stop()

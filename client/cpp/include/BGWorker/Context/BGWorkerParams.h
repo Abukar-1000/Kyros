@@ -35,12 +35,6 @@ inline bool BGWorkerParams::getPaused()
     return this->paused;
 }
 
-inline void BGWorkerParams::addRequest(Object request)
-{
-    std::lock_guard<std::mutex> lock(lockInstance);
-    this->requests.push_back(request);
-}
-
 inline std::vector<Object> BGWorkerParams::getRequests()
 {
     std::lock_guard<std::mutex> lock(lockInstance);

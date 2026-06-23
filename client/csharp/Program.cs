@@ -2,11 +2,11 @@
 using System.IO.Pipes;
 using System;
 
-[StructLayout(LayoutKind.Sequential, Pack = 1)]
+[StructLayout(LayoutKind.Sequential, Pack = 4)]
 public unsafe struct KillFrame
 {
     public ushort id;
-    public int processId;
+    public System.UInt32 processId;
     public fixed byte processName[256]; 
 }
 
@@ -33,7 +33,7 @@ class Program
         using var writer = new PipeWriter(pipeClient);
 
         var data = new KillFrame();
-        data.id = 42;
+        data.id = 1;
         data.processId = 12345;
 
         string name = "Discord";

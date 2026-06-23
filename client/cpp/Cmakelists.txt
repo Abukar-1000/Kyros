@@ -77,23 +77,37 @@ set(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Context/BGWorkerContextSingleton.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Context/BGWorkerContextSingleton.cpp
 
+    
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Gateway/GatewayWorker.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Gateway/GatewayWorker.cpp
+)
+
+set(
+    VISITORS_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Visitors/Command/CommandVisitor.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Visitors/Command/CommandVisitor.cpp
+)
+
+set(
+    MODELS_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/models/Tags.h
     ${CMAKE_CURRENT_SOURCE_DIR}/models/Object/Object.h
     ${CMAKE_CURRENT_SOURCE_DIR}/models/Object/Object.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/BGWorker/Gateway/GatewayWorker.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/BGWorker/Gateway/GatewayWorker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/models/Process/KillFrame.h
 )
 
 # Add an executable called 'Kyros' from source 'main.cpp'
 add_executable(
     Kyros 
     ${SOURCES}
+    ${MODELS_SOURCES}
     ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
     ${PROCESS_OBSERVER_SOURCES}
     ${INTER_PROCESS_COMMUNICATION_SOURCES}
     ${COMMAND_SOURCES}
     ${BGWORKER_SOURCES}
+    ${VISITORS_SOURCES}
 )
 
 if(MSVC)
@@ -103,12 +117,14 @@ endif()
 target_include_directories(
     Kyros
     PRIVATE
+    ${MODELS_SOURCES}
     ${PROCESS_SOURCES}
     ${PROCESS_ITTERATOR_SOURCES}
     ${PROCESS_OBSERVER_SOURCES}
     ${INTER_PROCESS_COMMUNICATION_SOURCES}
     ${COMMAND_SOURCES}
     ${BGWORKER_SOURCES}
+    ${VISITORS_SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/dependancies
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Header
