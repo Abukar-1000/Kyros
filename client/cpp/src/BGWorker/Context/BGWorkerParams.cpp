@@ -33,3 +33,8 @@ void BGWorkerParams::addRequest(Object request)
         std::cout << "Request added with id: " << request.getId() << std::endl;
     }
 }
+
+void BGWorkerParams::queueRequest(IDurativeCommand request)
+{
+    
+}

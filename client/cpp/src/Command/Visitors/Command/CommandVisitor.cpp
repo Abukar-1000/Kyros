@@ -13,6 +13,17 @@ namespace Command::Visitors
         command.execute();
     }
 
+    void CommandVisitor::operator()(const IPC::KillFrameWithDuration& frame)
+    {
+        std::cout << "Received KillFrameWithDuration with id: " << frame.id 
+                  << ", processId: " << frame.processId 
+                  << ", processName: " << frame.processName 
+                  << ", duration: " << frame.duration << std::endl;
+        auto command = DeleteCommand(frame.processName);
+        command.execute();
+        std::cout << "Tracking for duration: " << frame.duration << " milliseconds" << std::endl;
+    }
+
     void CommandVisitor::operator()(const std::monostate&) const
     {
         std::cout << "Visitor ignored an empty or invalid frame." << std::endl;

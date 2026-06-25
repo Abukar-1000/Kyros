@@ -8,6 +8,7 @@ namespace Models::Process::InterProcessCom
     {
         COMMAND_LIST_PROCESSES,
         COMMAND_KILL_PROCESS,
+        COMMAND_KILL_PROCESS_WITH_DURATION,
         COMMAND_PAUSE_BGWORKER,
         COMMAND_RESUME_BGWORKER,
         COMMAND_STOP_BGWORKER,
