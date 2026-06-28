@@ -57,7 +57,6 @@ K Pipe::receiveBytes(void)
         return buffer;
     }
 
-    // Allocate a temporary stack buffer matching your pipe configuration size
     std::byte tempBuffer[1024];
     DWORD bytesRead = 0;
 
@@ -72,7 +71,6 @@ K Pipe::receiveBytes(void)
 
     if (isSuccess && bytesRead > 0)
     {
-        // Safely resize and populate the clean vector wrapper
         buffer.assign(tempBuffer, tempBuffer + bytesRead);
     }
 

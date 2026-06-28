@@ -32,9 +32,22 @@ void GatewayWorker::act()
                         << payload.getId() << " size: " 
                         << payload.getData()->size() * sizeof(std::byte) 
                         << std::endl;
-            context->commandParams->addRequest(std::move(payload));
+            this->queueRequest(payload);
         }
     }
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
+}
+
+void GatewayWorker::queueRequest(Object& request)
+{
+    auto context = BGWorkerContextSingleton::get();
+    if (request.getId() & Frames::DURATIVE_COMMAND > 0)
+    {
+        context->commandParams->queueRequest(
+            DurativeRequest(60 * 1000, std::move(request))
+        );
+        return;
+    }
+    context->commandParams->addRequest(std::move(request));
 }

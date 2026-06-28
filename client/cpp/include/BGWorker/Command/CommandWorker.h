@@ -23,6 +23,9 @@ class CommandWorker : public IBGWorker
     private:
         Visitors::CommandVisitor commandVisitor;
         Frame GetFrame(Object request);
+        void processRequests(void);
+        void processDurativeRequests(void);
+        void cleanUp(void);
         void act() override;
     public:
         CommandWorker();

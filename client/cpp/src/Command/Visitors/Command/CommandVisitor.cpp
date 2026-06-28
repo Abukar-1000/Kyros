@@ -11,6 +11,7 @@ namespace Command::Visitors
                   << ", processName: " << frame.processName << std::endl;
         auto command = DeleteCommand(frame.processName);
         command.execute();
+        
     }
 
     void CommandVisitor::operator()(const IPC::KillFrameWithDuration& frame)

@@ -53,8 +53,8 @@ set(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Context/CommandContextSingleton.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Process/DeleteCommand.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Process/DeleteCommand.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Process/DurativeCommand/IDurativeCommand.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Process/DurativeCommand/IDurativeCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Process/DurativeRequest/DurativeRequest.h"
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Process/DurativeRequest/DurativeRequest.cpp"
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Context/CommandContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Command/Context/CommandContext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Command/Visitors/ProcessVisitor.h

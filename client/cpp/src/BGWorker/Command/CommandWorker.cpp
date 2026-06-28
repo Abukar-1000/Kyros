@@ -20,21 +20,9 @@ CommandWorker::CommandWorker()
 
 void CommandWorker::act()
 {
-    auto context = BGWorkerContextSingleton::get();
-    // auto requests = context->commandParams->getRequests();
-    // std::cout << "Processing requests, count: " << requests.size() << std::endl;
-    for(auto& req: context->commandParams->getRequests())
-    {
-        if (!req.isExecuted())
-        {
-            std::cout << "Request received with id: " << req.getId() << std::endl;
-            auto frame = this->GetFrame(req);
-            std::cout << "Handing off to visitor" << std::endl;
-            std::visit(this->commandVisitor, frame);
-            req.setExecuted(true);
-        }
-    }
-
+    this->processRequests();
+    this->processDurativeRequests();
+    this->cleanUp();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
@@ -70,4 +58,31 @@ Frame CommandWorker::GetFrame(Object request)
     }
 
     return std::monostate{}; 
+}
+
+void CommandWorker::processRequests(void)
+{
+    auto context = BGWorkerContextSingleton::get();
+    for(auto& req: context->commandParams->getRequests())
+    {
+        // std::cout << "Req executed: " << req.isExecuted() << std::endl;
+        if (!req.isExecuted())
+        {
+            auto frame = this->GetFrame(req);
+            std::visit(this->commandVisitor, frame);
+            req.setExecuted(true);
+        }
+    }
+}
+
+void CommandWorker::processDurativeRequests(void)
+{
+    // auto context = BGWorkerContextSingleton::get();
+}
+
+void CommandWorker::cleanUp(void)
+{
+    auto context = BGWorkerContextSingleton::get();
+    context->commandParams->flushRequests();
+    context->commandParams->flushDurativeRequests();
 }

@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 #include "../../../models/Object/Object.h"
-#include "../../Command/Process/DurativeCommand/IDurativeCommand.h"
+#include "../../Command/Process/DurativeRequest/DurativeRequest.h"
 
 class BGWorkerParams
 {
@@ -13,7 +13,7 @@ class BGWorkerParams
         bool paused;
         std::mutex lockInstance;
         std::vector<Object> requests;
-        std::vector<IDurativeCommand> durativeRequests;
+        std::vector<DurativeRequest> durativeRequests;
     public:
         BGWorkerParams() = default;
         ~BGWorkerParams() = default;
@@ -22,9 +22,11 @@ class BGWorkerParams
         void setRunning(bool running);
         void setPaused(bool paused);
         void addRequest(Object request);
-        void queueRequest(IDurativeCommand request);
-        std::vector<IDurativeCommand> getQueuedRequests();
-        std::vector<Object> getRequests();
+        void queueRequest(DurativeRequest request);
+        void flushRequests(void);
+        void flushDurativeRequests(void);
+        std::vector<DurativeRequest>& getQueuedRequests();
+        std::vector<Object>& getRequests();
 };
 
 inline bool BGWorkerParams::getRunning()
@@ -39,13 +41,13 @@ inline bool BGWorkerParams::getPaused()
     return this->paused;
 }
 
-inline std::vector<Object> BGWorkerParams::getRequests()
+inline std::vector<Object>& BGWorkerParams::getRequests()
 {
     std::lock_guard<std::mutex> lock(lockInstance);
     return this->requests;
 }
 
-inline std::vector<IDurativeCommand> BGWorkerParams::getQueuedRequests()
+inline std::vector<DurativeRequest>& BGWorkerParams::getQueuedRequests()
 {
     std::lock_guard<std::mutex> lock(lockInstance);
     return this->durativeRequests;
